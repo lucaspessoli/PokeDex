@@ -6,7 +6,7 @@ function Misc(){
 
     const [buscaPoke, setBuscaPoke] = useState();
     const [exibir, setExibir] = useState(false);
-    const [pokeObj, setPokeObj] = useState({nome: '', image: ""})
+    const [pokeObj, setPokeObj] = useState({nome: '', image: "", abilities: []})
 
     function BuscarImagemPokemon(){
         axios.get(`https://pokeapi.co/api/v2/pokemon/${buscaPoke}`)
@@ -14,9 +14,10 @@ function Misc(){
             const data = response.data
             var pokeImage =  data.sprites.front_default;
             var pokeName = data.forms[0].name;
-            console.log(response)
+            var abil = [data.abilities]
+            console.log(data)
             setExibir(true);
-            setPokeObj({nome: pokeName, image: pokeImage});         
+            setPokeObj({nome: pokeName, image: pokeImage, abilities: abil});        
         })
     }
     return(
@@ -27,6 +28,18 @@ function Misc(){
                 (exibir ? (
                     <div>
                         <p className="pokeP">{pokeObj.nome}</p>
+                        {console.log(pokeObj.abilities)}
+                        {
+                            pokeObj.abilities[0].map((e, index) =>{
+                                // return <p key={index}>{e.ability.name}</p> return usado dentro de um map no html pra retornar apenas um elemento
+                                return ( // return entre parentes pra envolver mais de um elemento. (bom usar a key na div)
+                                <div key={index}>
+                                    <p>Habilidade {index + 1}: {(e.ability.name).charAt(0).toUpperCase() + (e.ability.name).slice(1)}</p>
+                                </div>
+                                )
+
+                            })
+                        }
                         <img src={pokeObj.image} className="pokeI"/>
                     </div>
                 ) : (
