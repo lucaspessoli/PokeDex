@@ -7,7 +7,7 @@ function Misc(){
 
     const [buscaPoke, setBuscaPoke] = useState();
     const [exibir, setExibir] = useState(false);
-    const [pokeObj, setPokeObj] = useState({nome: '', image: "", abilities: [], style: []})
+    const [pokeObj, setPokeObj] = useState({id: 0, nome: '', image: "", abilities: [], style: [], desc: ""})
 
     function BuscarImagemPokemon(){
         axios.get(`https://pokeapi.co/api/v2/pokemon/${buscaPoke}`)
@@ -17,9 +17,11 @@ function Misc(){
             var pokeName = data.forms[0].name;
             var abil = [data.abilities]
             var estilo = [data.types]
+            var idP = [data.id]
+            var desc = [data]
             console.log(data)
             setExibir(true);
-            setPokeObj({nome: pokeName, image: pokeImage, abilities: abil, style: estilo});
+            setPokeObj({id: idP, nome: pokeName, image: pokeImage, abilities: abil, style: estilo});
             toast.success("Pokemon encontrado no sistema!")
         })
         .catch(e => toast.error("Pokemon não encontrado , você escreveu corretamente?"))
@@ -27,7 +29,7 @@ function Misc(){
 
     return(
         <div>
-            <input id="oi" type="text" placeholder="Insira o nome do pokemon" onChange={(e => setBuscaPoke(e.target.value))}/>
+            <input id="oi" type="text" placeholder="Insira o nome do pokemon" onChange={(e => setBuscaPoke(e.target.value))}/><br/>
             <button onClick={BuscarImagemPokemon}>Buscar</button>
             {
                 (exibir ? (
@@ -41,7 +43,7 @@ function Misc(){
                                 {/* <a rel="noopener noreferrer" href="#" class="block">
                                     <span class="title">Facere ipsa nulla corrupti praesentium </span>
                                 </a> */}
-                                <h3>{(pokeObj.nome).charAt(0).toUpperCase() + pokeObj.nome.slice(1)}</h3>
+                                <h3>#{pokeObj.id} - {(pokeObj.nome).charAt(0).toUpperCase() + pokeObj.nome.slice(1)}</h3>
                                 <p class="description">
                                 <h3>HABILIDADES:</h3>
                                     {
@@ -51,10 +53,17 @@ function Misc(){
                                     }
                                 <h3>ESTILO:</h3>
                                     {
-                                        pokeObj.style[0].map((e, index)=>{
-                                            return <p key={index}>Estilo {index + 1}: {e.type.name} </p>
+                                        pokeObj.style[0].map((est, index)=>{
+                                            // return <p key={index}>Estilo {index + 1}: {(est.name).charAt(0).toUpperCase() + (est.name(1))} </p>
+                                            return <p key={index}>Estilo {index + 1}: {(est.type.name).charAt(0).toUpperCase() + (est.type.name).slice(1)} </p>
                                         })
                                     }
+                                <h3>NAVEGAR</h3>
+                                    {
+                                        // pokeObj.s
+                                    }
+                                <h3></h3>
+                                <h3></h3>
                                 </p>
                             </div>
                         </div>
