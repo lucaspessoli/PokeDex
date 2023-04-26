@@ -9,7 +9,7 @@ function Misc(){
     const [exibir, setExibir] = useState(false);
     const [pokeObj, setPokeObj] = useState({id: 0, nome: '', image: "", abilities: [], style: [], desc: ""})
 
-    function BuscarImagemPokemon(){
+    function BuscarPokemon(){
         axios.get(`https://pokeapi.co/api/v2/pokemon/${buscaPoke}`)
         .then((response)=>{
             const data = response.data
@@ -27,10 +27,25 @@ function Misc(){
         .catch(e => toast.error("Pokemon não encontrado , você escreveu corretamente?"))
     }
 
+    function BuscarProximoPokemon(){
+        var idd = parseInt(pokeObj.id[0] + 1);
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${idd}`)
+            .then((response)=>{
+                const data = response.data
+                var pokeImage =  data.sprites.front_default;
+                var pokeName = data.forms[0].name;
+                var abil = [data.abilities]
+                var estilo = [data.types]
+                var idP = [data.id]
+                var desc = [data]
+                setPokeObj({id: idd, nome: pokeName, image: pokeImage, abilities: abil, style: estilo});
+            })
+    }
+
     return(
         <div>
-            <input id="oi" type="text" placeholder="Insira o nome do pokemon" onChange={(e => setBuscaPoke(e.target.value))}/><br/>
-            <button onClick={BuscarImagemPokemon}>Buscar</button>
+            <input id="oi" type="text" placeholder="Buscar pelo nome ou id" onChange={(e => setBuscaPoke(e.target.value))}/><br/>
+            <button onClick={BuscarPokemon}>Buscar</button>
             {
                 (exibir ? (
                     <div class="card">
@@ -54,13 +69,12 @@ function Misc(){
                                 <h3>ESTILO:</h3>
                                     {
                                         pokeObj.style[0].map((est, index)=>{
-                                            // return <p key={index}>Estilo {index + 1}: {(est.name).charAt(0).toUpperCase() + (est.name(1))} </p>
                                             return <p key={index}>Estilo {index + 1}: {(est.type.name).charAt(0).toUpperCase() + (est.type.name).slice(1)} </p>
                                         })
                                     }
                                 <h3>NAVEGAR</h3>
                                     {
-                                        // pokeObj.s
+                                        <button onClick={BuscarProximoPokemon}>Próximo</button>
                                     }
                                 <h3></h3>
                                 <h3></h3>
