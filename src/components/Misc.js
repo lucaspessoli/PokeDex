@@ -7,7 +7,7 @@ function Misc(){
 
     const [buscaPoke, setBuscaPoke] = useState();
     const [exibir, setExibir] = useState(false);
-    const [pokeObj, setPokeObj] = useState({nome: '', image: "", abilities: []})
+    const [pokeObj, setPokeObj] = useState({nome: '', image: "", abilities: [], style: []})
 
     function BuscarImagemPokemon(){
         axios.get(`https://pokeapi.co/api/v2/pokemon/${buscaPoke}`)
@@ -16,9 +16,10 @@ function Misc(){
             var pokeImage =  data.sprites.front_default;
             var pokeName = data.forms[0].name;
             var abil = [data.abilities]
+            var estilo = [data.types]
             console.log(data)
             setExibir(true);
-            setPokeObj({nome: pokeName, image: pokeImage, abilities: abil});
+            setPokeObj({nome: pokeName, image: pokeImage, abilities: abil, style: estilo});
             toast.success("Pokemon encontrado no sistema!")
         })
         .catch(e => toast.error("Pokemon não encontrado , você escreveu corretamente?"))
@@ -30,21 +31,32 @@ function Misc(){
             <button onClick={BuscarImagemPokemon}>Buscar</button>
             {
                 (exibir ? (
-                    <div>
-                        <p className="pokeP">{pokeObj.nome}</p>
-                        {console.log(pokeObj.abilities)}
-                            <div class="card">
-                                <div class="card-image"><img src={pokeObj.image}/></div>
-                                <div class="category"> <p>{pokeObj.nome}</p> </div>
-                                <div class="heading">
+                    <div class="card">
+                            <div class="header">
+                                <div class="image">
+                                    <span class="tag"><img src={pokeObj.image} /></span>
+                                </div>
+                            </div>
+                            <div class="info">
+                                {/* <a rel="noopener noreferrer" href="#" class="block">
+                                    <span class="title">Facere ipsa nulla corrupti praesentium </span>
+                                </a> */}
+                                <h3>{(pokeObj.nome).charAt(0).toUpperCase() + pokeObj.nome.slice(1)}</h3>
+                                <p class="description">
+                                <h3>HABILIDADES:</h3>
                                     {
                                         pokeObj.abilities[0].map((e, index)=>{
-                                            return <p>Habilidade {index + 1}: {(e.ability.name).charAt(0).toUpperCase() + (e.ability.name).slice(1)}</p>
+                                            return <p key={index}>Habilidade {index + 1}: {(e.ability.name).charAt(0).toUpperCase() +  (e.ability.name).slice(1)}</p>
                                         })
                                     }
-                                    <div class="author"> By <span class="name">Abi</span> 4 days ago</div>
-                                </div>
-                                </div>
+                                <h3>ESTILO:</h3>
+                                    {
+                                        pokeObj.style[0].map((e, index)=>{
+                                            return <p key={index}>Estilo {index + 1}: {e.type.name} </p>
+                                        })
+                                    }
+                                </p>
+                            </div>
                         </div>
                 ) : (
                     null
@@ -56,3 +68,14 @@ function Misc(){
 }
 
 export default Misc
+
+{/* <p className="pokeP">{pokeObj.nome}</p>
+<div class="card">
+    <div class="card-image"><img src={pokeObj.image}/></div>
+    <div class="category"> <p>{pokeObj.nome}</p> </div>
+    <div class="heading">
+        {
+            pokeObj.abilities[0].map((e, index)=>{
+                return <p>Habilidade {index + 1}: {(e.ability.name).charAt(0).toUpperCase() + (e.ability.name).slice(1)}</p>
+            })
+        } */}
