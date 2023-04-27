@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navegation from "../nave/Navegation";
 
 function Misc(){
 
@@ -63,6 +64,7 @@ function Misc(){
 
     return(
         <div>
+            <Navegation />
             <input id="oi" type="text" placeholder="Buscar pelo nome ou id" onChange={(e => setBuscaPoke(e.target.value))}/><br/>
             <button onClick={BuscarPokemon}>Buscar</button>
             {
