@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navegation from "../nave/Navegation";
+import PokemonCollection from "./PokemonCollection";
 
 function Misc(){
 
@@ -10,6 +11,7 @@ function Misc(){
     const [exibir, setExibir] = useState(false);
     const [pokeObj, setPokeObj] = useState({id: 0, nome: '', image: "", abilities: [], style: [], desc: ""})
     const [navegarId, setNavegarId] = useState();
+
 
     function BuscarPokemon(){
         axios.get(`https://pokeapi.co/api/v2/pokemon/${buscaPoke}`)
@@ -96,13 +98,18 @@ function Misc(){
                                 </div>
                             </div>
                             <div>
-                            <h3>NAVEGAR</h3>
+                                <h3>NAVEGAR</h3>
                                 <button onClick={BuscarPokemonAnterior}>ANTERIOR</button>
                                 <button onClick={BuscarProximoPokemon}>PRÓXIMO</button>
                             </div>
+                            <div>
+                                <PokemonCollection />
+                            </div>
                         </div>
                 ) : (
-                    null
+                    <div>
+                        <PokemonCollection />
+                    </div>
                 ))
             }
             <ToastContainer />

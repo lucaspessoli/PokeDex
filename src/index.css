@@ -44,7 +44,7 @@ code {
   border-radius: 20px;
 }
 
-
+/*Créditos do card para: UIVerse */
 .card {
   padding: 1rem;
   background-color: #fff;
@@ -127,7 +127,7 @@ code {
 }
 
 .image {
-  background-color: #374151;
+  background-color: #becdcd;
 }
 
 button {
@@ -148,13 +148,12 @@ button {
 }
 
 button:hover {
-  background-color: #f77278;
+  background-color: #21d1cd;
 
 }
 
 
 
-/* From uiverse.io by @alexruix */
 input {
   border-radius: 15px;
   border-color: #777;
