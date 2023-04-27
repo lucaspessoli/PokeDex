@@ -93,9 +93,11 @@ function Misc(){
                                         }
                                 </div>
                             </div>
+                            <div>
                             <h3>NAVEGAR</h3>
-                            <button onClick={BuscarPokemonAnterior}>ANTERIOR</button>
-                            <button onClick={BuscarProximoPokemon}>PRÓXIMO</button>
+                                <button onClick={BuscarPokemonAnterior}>ANTERIOR</button>
+                                <button onClick={BuscarProximoPokemon}>PRÓXIMO</button>
+                            </div>
                         </div>
                 ) : (
                     null
