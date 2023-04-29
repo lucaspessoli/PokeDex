@@ -98,9 +98,10 @@ function Misc(){
                                 </div>
                             </div>
                             <div>
-                                <h3>NAVEGAR</h3>
+                                <br/>
                                 <button onClick={BuscarPokemonAnterior}>ANTERIOR</button>
                                 <button onClick={BuscarProximoPokemon}>PRÓXIMO</button>
+                                <br/>
                             </div>
                             <div>
                                 <PokemonCollection />
