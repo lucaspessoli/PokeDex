@@ -9,7 +9,7 @@ function Misc(){
 
     const [buscaPoke, setBuscaPoke] = useState();
     const [exibir, setExibir] = useState(false);
-    const [pokeObj, setPokeObj] = useState({id: 0, nome: '', image: "", abilities: [], style: [], desc: ""})
+    const [pokeObj, setPokeObj] = useState({id: 0, nome: '', image: "", abilities: [], style: [], desc: "", tipo: ""})
     const [navegarId, setNavegarId] = useState();
 
 
@@ -23,9 +23,11 @@ function Misc(){
             var estilo = [data.types]
             var idP = [data.id]
             var desc = [data]
+            var tipoP = [data.types[0].type.name]
+            tipoP = tipoP.toString();
             console.log(data)
             setExibir(true);
-            setPokeObj({id: idP, nome: pokeName, image: pokeImage, abilities: abil, style: estilo});
+            setPokeObj({id: idP, nome: pokeName, image: pokeImage, abilities: abil, style: estilo, tipo: tipoP});
             setNavegarId(idP);
             toast.success("Pokemon encontrado no sistema!")
         })
@@ -43,7 +45,9 @@ function Misc(){
                 var estilo = [data.types]
                 var idP = [data.id]
                 var desc = [data]
-                setPokeObj({id: idP, nome: pokeName, image: pokeImage, abilities: abil, style: estilo});
+                var tipoP = [data.types[0].type.name]
+                tipoP = tipoP.toString();
+                setPokeObj({id: idP, nome: pokeName, image: pokeImage, abilities: abil, style: estilo, tipo: tipoP});
                 setNavegarId(idDeBusca);
             })
     }
@@ -59,7 +63,9 @@ function Misc(){
                 var estilo = [data.types]
                 var idP = [data.id]
                 var desc = [data]
-                setPokeObj({id: idP, nome: pokeName, image: pokeImage, abilities: abil, style: estilo});
+                var tipoP = [data.types[0].type.name]
+                tipoP = tipoP.toString();
+                setPokeObj({id: idP, nome: pokeName, image: pokeImage, abilities: abil, style: estilo, tipo: tipoP});
                 setNavegarId(idDeBusca);
             })
     }
@@ -94,6 +100,10 @@ function Misc(){
                                             pokeObj.style[0].map((est, index)=>{
                                                 return <p key={index}>Estilo {index + 1}: {(est.type.name).charAt(0).toUpperCase() + (est.type.name).slice(1)} </p>
                                             })
+                                        }
+                                    <h3>ELEMENTO:</h3>
+                                        {
+                                            <p>{(pokeObj.tipo).charAt(0).toUpperCase() + (pokeObj.tipo).slice(1)}</p>
                                         }
                                 </div>
                             </div>

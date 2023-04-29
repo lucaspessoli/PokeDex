@@ -4,7 +4,7 @@ import axios from "axios";
 function PokemonCollection(){
 
     const [exibicoes, SetExibicoes] = useState([]);
-    const [taxa, SetTaxa] = useState(10);
+    const [taxa, SetTaxa] = useState(0);
 
     const typeColors = {
         water: 'rgb(125, 242, 255)',
@@ -46,46 +46,22 @@ function PokemonCollection(){
                 SetExibicoes(tempExibicoes);
               });
           });
-      }, []);
+      }, [taxa]);
 
       function AvancarLista(){
-        SetTaxa(prevTaxa => prevTaxa + 10);
-        axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${taxa}&limit=10}`)
-        .then((response) => {
-          const tempExibicoes = [];
-          const requests = response.data.results.map((pk) => {
-              return axios.get(pk.url)
-                  .then((r) => {
-                      tempExibicoes.push(r.data);
-                      console.log(r.data)
-            });
-          });
-          Promise.all(requests)
-            .then(() => {
-              tempExibicoes.sort((a,b) => a.id - b.id); //Ordena o array pelo id dos pokemons, pois na Promise a ordem pode ser quebrada, então é necessario sort
-              SetExibicoes(tempExibicoes);
-            });
-        });
+        if(taxa === 1271){
+            SetTaxa(0)
+        }else{
+            SetTaxa(prevTaxa => prevTaxa + 10);
+        }
       }
 
       function VoltarLista(){
-        SetTaxa(prevTaxa => prevTaxa - 10);
-        axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${taxa}&limit=10}`)
-        .then((response) => {
-          const tempExibicoes = [];
-          const requests = response.data.results.map((pk) => {
-              return axios.get(pk.url)
-                  .then((r) => {
-                      tempExibicoes.push(r.data);
-                      console.log(r.data)
-            });
-          });
-          Promise.all(requests)
-            .then(() => {
-              tempExibicoes.sort((a,b) => a.id - b.id); //Ordena o array pelo id dos pokemons, pois na Promise a ordem pode ser quebrada, então é necessario sort
-              SetExibicoes(tempExibicoes);
-            });
-        });
+        if (taxa >= 10){
+            SetTaxa(prevTaxa => prevTaxa - 10);
+        }else{
+            SetTaxa(prevTaxa => prevTaxa + 1271);
+        }
       }
       
 
