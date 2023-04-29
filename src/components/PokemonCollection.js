@@ -4,13 +4,10 @@ import axios from "axios";
 function PokemonCollection(){
 
     const [exibicoes, SetExibicoes] = useState([]);
-    const urlGrassWallpaper = "https://e0.pxfuel.com/wallpapers/202/641/desktop-wallpaper-anime-forest-background-cool-anime-forest.jpg";
-
+    const [limite, SetLimite] = useState(40);
 
     useEffect(() => {
-        const urlFireWallpaper = "";
-
-        axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10`)
+        axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=55&limit=${limite}`)
           .then((response) => {
             const tempExibicoes = [];
             const requests = response.data.results.map((pk) => {
@@ -27,6 +24,26 @@ function PokemonCollection(){
               });
           });
       }, []);
+
+    //   function AvancarLista(){
+    //     SetLimite(prevLimite => prevLimite + 10);
+    //     axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=${limite}`)
+    //     .then((response) => {
+    //       const tempExibicoes = [];
+    //       const requests = response.data.results.map((pk) => {
+    //           return axios.get(pk.url)
+    //               .then((r) => {
+    //                   tempExibicoes.push(r.data);
+    //                   console.log(r.data)
+    //         });
+    //       });
+    //       Promise.all(requests)
+    //         .then(() => {
+    //           tempExibicoes.sort((a,b) => a.id - b.id); //Ordena o array pelo id dos pokemons, pois na Promise a ordem pode ser quebrada, então é necessario sort
+    //           SetExibicoes(tempExibicoes);
+    //         });
+    //     });
+    //   }
       
 
     return(
@@ -68,7 +85,38 @@ function PokemonCollection(){
                                     <p>#{poke.id}</p>
                                     <img src={poke.sprites.front_default} style={{backgroundColor: 'rgb(153, 96, 63)'}}/>
                                     </>
-                                    : null
+                                        :poke.types[0].type.name === "normal"
+                                        ?
+                                        <>
+                                        <p>#{poke.id}</p>
+                                        <img src={poke.sprites.front_default}/>
+                                        </>
+                                            :poke.types[0].type.name === "poison"
+                                            ?
+                                            <>
+                                            <p>#{poke.id}</p>
+                                            <img src={poke.sprites.front_default} style={{backgroundColor: 'rgb(25, 69, 33)'}}/>
+                                            </>
+                                                :poke.types[0].type.name === "fairy"
+                                                ?
+                                                <>
+                                                <p>#{poke.id}</p>
+                                                <img src={poke.sprites.front_default} style={{backgroundColor: 'rgb(231, 133, 255)'}}/>
+                                                </>
+                                                    :poke.types[0].type.name === "electric"
+                                                    ?
+                                                    <>
+                                                    <p>#{poke.id}</p>
+                                                    <img src={poke.sprites.front_default} style={{backgroundColor: 'rgb(250, 255, 97)'}}/>
+                                                    </>
+                                                        :poke.types[0].type.name === "ground"
+                                                        ?
+                                                        <>
+                                                        <p>#{poke.id}</p>
+                                                        <img src={poke.sprites.front_default} style={{backgroundColor: 'rgb(93, 94, 51)'}}/>
+                                                        </>
+                                                        :null
+
                 }
                 </span>
                 </div>
@@ -77,7 +125,7 @@ function PokemonCollection(){
                 )
             })
             }
-            <button>Avançar</button>
+            {/* <button onClick={AvancarLista}>Avançar</button> */}
         </div>
         </div>
     )
