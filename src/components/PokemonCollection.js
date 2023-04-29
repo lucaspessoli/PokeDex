@@ -29,20 +29,33 @@ function PokemonCollection(){
         <div>
             <p>salve</p>
         </div>
-        <div>
-        {
-        exibicoes.map((poke, index) => {
-            return(
-            <div className="subCard">
+        <div className="roli">
+            {
+            exibicoes.map((poke, index) => {
+                return(
+                <div className="subCard">
                 <div className="header">
-                    <div className="image">
-                        <span className="tag"><img src={poke.sprites.front_default} /></span>
-                    </div>
+                <div>
+                <span className="tag">
+                {
+                    poke.types[0].type.name === "water"
+                        ?<p>agua</p>
+                        :poke.types[0].type.name === "fire"
+                            ?<p>fogo</p>
+                            : poke.types[0].type.name === "grass"
+                                ?<p>grama</p>
+                                :poke.types[0].type.name === "bug"
+                                    ?<p>inseto</p>
+                                    : null
+                }
+                <img src={poke.sprites.front_default} style={{backgroundColor: "black"}}/>
+                </span>
                 </div>
-            </div>
-            )
-        })
-        }
+                </div>
+                </div>
+                )
+            })
+            }
         </div>
         </div>
     )
