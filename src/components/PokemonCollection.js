@@ -23,7 +23,7 @@ function PokemonCollection(){
         psychic: 'rgb(174, 61, 255)',
         dragon: 'rgb(194, 74, 0)',
         ice: 'rgb(181, 248, 255)',
-        dark: 'rgb(24, 6, 26)',
+        dark: 'rgb(24, 6, 25)',
         steel: 'rgb(135, 132, 135)'
       };
       
